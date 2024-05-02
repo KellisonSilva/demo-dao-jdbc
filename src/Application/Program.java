@@ -22,14 +22,22 @@ public class Program {
 //		List<Seller> list = sellerDAO.findByDepartment(dep);
 //		list.forEach(c -> System.out.println("====================\n" + c));
 //		System.out.println("============= SELLER TEST 2 findByDepartment =================");
-//		System.out.println("\n============= SELLER TEST 2 findAll =================");
+//		System.out.println("\n============= SELLER TEST 3 findAll =================");
 //		List<Seller> list = sellerDAO.findAll();
 //		list.forEach(c -> System.out.println("====================\n" + c));
-//		System.out.println("============= SELLER TEST 2 findAll =================");
-
-		Seller newSeller = new Seller(null, "Greg", "greg@gmail.com", new Date(), 4000.0, objT);
-		sellerDAO.insert(newSeller);
-		System.out.println("Inserted! new Id: " + newSeller);
+//		System.out.println("============= SELLER TEST 3 findAll =================");
+//		System.out.println("============= SELLER TEST 4 Insert =================");
+//		Seller newSeller = new Seller(null, "Greg", "greg@gmail.com", new Date(), 4000.0, objT);
+//		sellerDAO.insert(newSeller);
+//		System.out.println("Inserted! new Id: " + newSeller);
+//		System.out.println("============= SELLER TEST 4 Insert =================");
+		
+		System.out.println("============= SELLER TEST 5 Update =================");
+		Seller seller = sellerDAO.findById(1);
+		seller.setName("Martha Wayne");
+		sellerDAO.update(seller);
+		System.out.println(seller + "\nUpdate completed!!");
+		System.out.println("============= SELLER TEST 5 Update =================");
 	}
 
 }
