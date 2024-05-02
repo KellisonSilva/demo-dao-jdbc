@@ -4,11 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import db.DB;
 import db.DbException;
 import model.dao.SellerDAO;
@@ -25,6 +25,39 @@ public class SellerJDBC implements SellerDAO {
 
 	@Override
 	public void insert(Seller seller) {
+
+		PreparedStatement ps = null;
+
+		try {
+
+			ps = conn.prepareStatement(
+					"INSERT INTO seller (Name, Email, BirthDate, BaseSalary, DepartmentId) VALUES (?, ?, ?, ?, ?)",
+					Statement.RETURN_GENERATED_KEYS);
+
+			ps.setString(1, seller.getName());
+			ps.setString(2, seller.getEmail());
+			ps.setDate(3, new java.sql.Date(seller.getBirthDate().getTime()));
+			ps.setDouble(4, seller.getBaseSalary());
+			ps.setInt(5, seller.getDepartment().getId());
+
+			int rowsAffected = ps.executeUpdate();
+
+			if (rowsAffected > 0) {
+				ResultSet rs = ps.getGeneratedKeys();
+				if (rs.next()) {
+					int id = rs.getInt(1);
+					seller.setId(id);
+				}
+				DB.closeResultSet(rs);
+			} else {
+				throw new DbException("Unexpected error!! no rows affected!!");
+			}
+
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeStatement(ps);
+		}
 
 	}
 
@@ -99,9 +132,8 @@ public class SellerJDBC implements SellerDAO {
 
 		try {
 
-			pst = conn.prepareStatement(
-					"SELECT seller .*, department.Name as DepName " + "FROM seller INNER JOIN department ON "
-							+ "seller.DepartmentId = Department.Id ORDER by Name;");
+			pst = conn.prepareStatement("SELECT seller .*, department.Name as DepName "
+					+ "FROM seller INNER JOIN department ON " + "seller.DepartmentId = Department.Id ORDER by Name;");
 
 			List<Seller> listSeller = new ArrayList<>();
 			Map<Integer, Department> mapDep = new HashMap<>();

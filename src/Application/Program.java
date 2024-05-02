@@ -1,18 +1,17 @@
 package Application;
 
-import java.util.Comparator;
-import java.util.List;
+import java.util.Date;
 import model.dao.DAOFactory;
 import model.dao.SellerDAO;
+import model.entities.Department;
 import model.entities.Seller;
 
 public class Program {
 
 	public static void main(String[] args) {
 
-//		Department objT = new Department(1, "Books");
+		Department objT = new Department(1, "Books");
 //		Seller seller = new Seller(21, "Bob", "Bob@gmail.com", new Date(), 3000.0, objT);
-
 //		System.out.println("============= SELLER TEST 1 =================");
 		SellerDAO sellerDAO = DAOFactory.createSellerDao();
 //		Seller findById = sellerDAO.findById(3);
@@ -23,12 +22,14 @@ public class Program {
 //		List<Seller> list = sellerDAO.findByDepartment(dep);
 //		list.forEach(c -> System.out.println("====================\n" + c));
 //		System.out.println("============= SELLER TEST 2 findByDepartment =================");
-		
-		System.out.println("\n============= SELLER TEST 2 findAll =================");
-		List<Seller> list = sellerDAO.findAll();
-		list.forEach(c -> System.out.println("====================\n" + c));
-		System.out.println("============= SELLER TEST 2 findByDepartment =================");
+//		System.out.println("\n============= SELLER TEST 2 findAll =================");
+//		List<Seller> list = sellerDAO.findAll();
+//		list.forEach(c -> System.out.println("====================\n" + c));
+//		System.out.println("============= SELLER TEST 2 findAll =================");
 
+		Seller newSeller = new Seller(null, "Greg", "greg@gmail.com", new Date(), 4000.0, objT);
+		sellerDAO.insert(newSeller);
+		System.out.println("Inserted! new Id: " + newSeller);
 	}
 
 }
