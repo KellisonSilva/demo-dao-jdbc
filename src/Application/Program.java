@@ -1,16 +1,16 @@
 package Application;
 
-import java.util.Date;
+import java.util.Scanner;
 import model.dao.DAOFactory;
 import model.dao.SellerDAO;
-import model.entities.Department;
-import model.entities.Seller;
 
 public class Program {
 
 	public static void main(String[] args) {
 
-		Department objT = new Department(1, "Books");
+		Scanner sc = new Scanner(System.in);
+		
+//		Department objT = new Department(1, "Books");
 //		Seller seller = new Seller(21, "Bob", "Bob@gmail.com", new Date(), 3000.0, objT);
 //		System.out.println("============= SELLER TEST 1 =================");
 		SellerDAO sellerDAO = DAOFactory.createSellerDao();
@@ -31,13 +31,26 @@ public class Program {
 //		sellerDAO.insert(newSeller);
 //		System.out.println("Inserted! new Id: " + newSeller);
 //		System.out.println("============= SELLER TEST 4 Insert =================");
+//		System.out.println("============= SELLER TEST 5 Update =================");
+//		Seller seller = sellerDAO.findById(1);
+//		seller.setName("Martha Wayne");
+//		sellerDAO.update(seller);
+//		System.out.println(seller + "\nUpdate completed!!");
+//		System.out.println("============= SELLER TEST 5 Update =================");
 		
-		System.out.println("============= SELLER TEST 5 Update =================");
-		Seller seller = sellerDAO.findById(1);
-		seller.setName("Martha Wayne");
-		sellerDAO.update(seller);
-		System.out.println(seller + "\nUpdate completed!!");
-		System.out.println("============= SELLER TEST 5 Update =================");
+		
+		System.out.println("============= SELLER TEST 6 DELETE =================");
+		System.out.print("Enter for delete Seller: ");
+		sellerDAO.deleteById(sc.nextInt());
+		System.out.println("Delete completed!!");
+		System.out.println("============= SELLER TEST 6 DELETE =================");
+		
+		
+		
+		
+		
+		
+		
 	}
 
 }
